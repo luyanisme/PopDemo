@@ -1,0 +1,21 @@
+
+//
+//  pop.pch
+//  PopDemo
+//
+//  Created by 卢棪 on 9/30/15.
+//  Copyright © 2015 _Luyan. All rights reserved.
+//
+
+#ifndef pop_pch
+#define pop_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* pop_pch */
+
+#ifdef __OBJC__
+#import "UIColor+CustomColor.h"
+#import <pop/POP.h>
+#endif
