@@ -36,6 +36,7 @@
     if (self) {
         self.layer.cornerRadius = frame.size.height/2;
         self.layer.borderWidth = 2.0f;
+        self.layer.backgroundColor = [UIColor whiteColor].CGColor;
         self.layer.borderColor = [UIColor colorWithRed:0.00f green:0.81f blue:0.59f alpha:1.00f].CGColor;
         [self configSubViews];
     }

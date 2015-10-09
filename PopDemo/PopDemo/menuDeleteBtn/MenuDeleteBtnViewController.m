@@ -18,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.translucent = YES;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     

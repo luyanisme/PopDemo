@@ -23,6 +23,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.navigationController.navigationBar.translucent = YES;
+    
     self.popBtn = [[ShakeButton alloc] init];
     self.popBtn.frame = CGRectMake((self.view.bounds.size.width-80)/2, (self.view.bounds.size.height-40)/2, 80, 40);
     self.popBtn.backgroundColor = [UIColor customBlueColor];
