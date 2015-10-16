@@ -12,6 +12,7 @@
 #import "MenuDeleteBtnViewController.h"
 #import "PersonalInfoTableViewController.h"
 #import "SubmitBtnViewController.h"
+#import "CircleMenuViewController.h"
 
 @interface AnimationCell : UITableViewCell
 
@@ -72,14 +73,15 @@
 }
 
 - (void)initAnimationList{
-    self.animationList = @[@"Shake Button", @"Submit Button", @"MenuDelete Button", @"PersonalInfoTableView"];
+    self.animationList = @[@"Shake Button", @"Submit Button", @"MenuDelete Button", @"PersonalInfoTableView", @"CircleMenu"];
 }
 
 - (void)initControllers{
     self.controllers = @[[ShakeBtnViewController class],
                          [SubmitBtnViewController class],
                          [MenuDeleteBtnViewController class],
-                         [PersonalInfoTableViewController class]
+                         [PersonalInfoTableViewController class],
+                         [CircleMenuViewController class]
                          ];
 }
 

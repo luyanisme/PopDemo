@@ -14,6 +14,8 @@
 		394A6BA41BBAD25300AE0678 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 394A6BA31BBAD25300AE0678 /* Images.xcassets */; };
 		394A6BA71BBAD25300AE0678 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 394A6BA51BBAD25300AE0678 /* LaunchScreen.xib */; };
 		394A6BB31BBAD25300AE0678 /* PopDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 394A6BB21BBAD25300AE0678 /* PopDemoTests.m */; };
+		394E14121BC8B230001F0268 /* CircleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 394E14111BC8B230001F0268 /* CircleMenuViewController.m */; settings = {ASSET_TAGS = (); }; };
+		394E14151BC8B354001F0268 /* CircleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 394E14141BC8B354001F0268 /* CircleMenu.m */; settings = {ASSET_TAGS = (); }; };
 		395D1B901BC615A90095C260 /* SubmitButton_v2.m in Sources */ = {isa = PBXBuildFile; fileRef = 395D1B8F1BC615A90095C260 /* SubmitButton_v2.m */; settings = {ASSET_TAGS = (); }; };
 		39637D871BBD646A001FFCB3 /* MenuDeleteBtnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39637D861BBD646A001FFCB3 /* MenuDeleteBtnViewController.m */; settings = {ASSET_TAGS = (); }; };
 		39637D8A1BBD65CF001FFCB3 /* MDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39637D891BBD65CF001FFCB3 /* MDButton.m */; settings = {ASSET_TAGS = (); }; };
@@ -76,6 +78,10 @@
 		394A6BAC1BBAD25300AE0678 /* PopDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		394A6BB11BBAD25300AE0678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		394A6BB21BBAD25300AE0678 /* PopDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopDemoTests.m; sourceTree = "<group>"; };
+		394E14101BC8B230001F0268 /* CircleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMenuViewController.h; sourceTree = "<group>"; };
+		394E14111BC8B230001F0268 /* CircleMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMenuViewController.m; sourceTree = "<group>"; };
+		394E14131BC8B354001F0268 /* CircleMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMenu.h; sourceTree = "<group>"; };
+		394E14141BC8B354001F0268 /* CircleMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMenu.m; sourceTree = "<group>"; };
 		395D1B8E1BC615A90095C260 /* SubmitButton_v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitButton_v2.h; sourceTree = "<group>"; };
 		395D1B8F1BC615A90095C260 /* SubmitButton_v2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitButton_v2.m; sourceTree = "<group>"; };
 		39637D851BBD646A001FFCB3 /* MenuDeleteBtnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDeleteBtnViewController.h; sourceTree = "<group>"; };
@@ -204,6 +210,7 @@
 				39637D841BBD644D001FFCB3 /* menuDeleteBtn */,
 				39A91CE51BBCE4A700B1ED72 /* shakeBtn */,
 				398438E51BC13FB900B13EDE /* submitBtn */,
+				394E140F1BC8B218001F0268 /* circleMenu */,
 				39637D971BBE40BC001FFCB3 /* bounceTableview */,
 				39637D931BBE4001001FFCB3 /* personalInfoTableview */,
 				39A91CDD1BBC21AD00B1ED72 /* color */,
@@ -245,6 +252,17 @@
 				394A6BB11BBAD25300AE0678 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		394E140F1BC8B218001F0268 /* circleMenu */ = {
+			isa = PBXGroup;
+			children = (
+				394E14101BC8B230001F0268 /* CircleMenuViewController.h */,
+				394E14111BC8B230001F0268 /* CircleMenuViewController.m */,
+				394E14131BC8B354001F0268 /* CircleMenu.h */,
+				394E14141BC8B354001F0268 /* CircleMenu.m */,
+			);
+			path = circleMenu;
 			sourceTree = "<group>";
 		};
 		39637D841BBD644D001FFCB3 /* menuDeleteBtn */ = {
@@ -509,6 +527,7 @@
 				39F2B6421BBAD91500EF30BE /* POPAnimationExtras.mm in Sources */,
 				39A91CEB1BBCE4A700B1ED72 /* ShakeButton.m in Sources */,
 				39F2B63C1BBAD91500EF30BE /* module.modulemap in Sources */,
+				394E14151BC8B354001F0268 /* CircleMenu.m in Sources */,
 				39F2B64B1BBAD91500EF30BE /* POPLayerExtras.mm in Sources */,
 				394A6B9C1BBAD25300AE0678 /* PopDemo.xcdatamodeld in Sources */,
 				39A91CEA1BBCE4A700B1ED72 /* ShakeBtnViewController.m in Sources */,
@@ -526,6 +545,7 @@
 				39F2B64F1BBAD91500EF30BE /* POPVector.mm in Sources */,
 				39637D961BBE402A001FFCB3 /* PersonalInfoTableViewController.m in Sources */,
 				398438EB1BC1425D00B13EDE /* SubmitButton_v1.m in Sources */,
+				394E14121BC8B230001F0268 /* CircleMenuViewController.m in Sources */,
 				398438E41BC0DBC700B13EDE /* RollingLabel.m in Sources */,
 				39F2B6411BBAD91500EF30BE /* POPAnimationEvent.mm in Sources */,
 				395D1B901BC615A90095C260 /* SubmitButton_v2.m in Sources */,
