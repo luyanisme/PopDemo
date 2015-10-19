@@ -9,6 +9,7 @@
 #import "CircleMenu.h"
 
 #define MARGIN (20.0f)
+#define SCALE (13.0f)
 
 @interface CircleMenu ()
 {
@@ -19,6 +20,11 @@
     CAShapeLayer *_blackCircle;//黑色圆圈
     
     UIViewController *_currentCtrl;//当前的视图控制器
+    NSMutableArray   *_buttonContainer;//存放四个按钮的容器
+    
+    BOOL _isExpand;//是否已经展开
+    
+    UIView *_backView;//功能界面背景
 }
 
 @end
@@ -36,6 +42,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         _originalFrame = frame;
+        _buttonContainer = [NSMutableArray array];
+        _isExpand = NO;
         self.layer.cornerRadius = frame.size.height/2;
         [self addTarget:self action:@selector(touchUpInsideHandler:) forControlEvents:UIControlEventTouchUpInside];
         [self configWidget];
@@ -45,6 +53,7 @@
 
 - (void)configWidget{
     [self initTitleLabel];
+    _backView = [[UIView alloc] init];
 }
 
 - (void)showByController:(UIViewController *)controller{
@@ -88,6 +97,21 @@
     [self.layer addSublayer:_blackCircle];
 }
 
+- (void)closeBlackCircle{
+    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+    UIBezierPath *toPath = [self pathWithDiameter:0];//缩小当前path的动画
+    [pathAnimation setValue:@"Animation3" forKey:@"closeBlackCircle"];
+    pathAnimation.toValue = (id)toPath.CGPath;
+    pathAnimation.duration = 0.25;
+    pathAnimation.delegate = self;
+    //为了使动画结束后不弹回起始效果
+    pathAnimation.autoreverses = NO;//默认就是NO，设置成Yes之后下面fillMode就不起作用了
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.removedOnCompletion = NO;
+    [_blackCircle addAnimation:pathAnimation forKey:nil];
+}
+
+//展开功能按钮
 - (void)initGlowCircle{
     
     CGFloat lineWidth = 10.0f;
@@ -112,6 +136,23 @@
     
 }
 
+//关闭功能按钮
+- (void)closeGlowCircle{
+    for (int i=0; i<_buttonContainer.count; i++) {
+        UIButton *button = _buttonContainer[i];
+        [UIView animateWithDuration:0.25 delay:i*0.1 options:0 animations:^{
+            button.frame = CGRectMake(_currentCtrl.view.center.x, _currentCtrl.view.center.y, 0, 0);
+        } completion:^(BOOL finished) {
+            [_buttonContainer removeObject:button];
+            [button removeFromSuperview];
+            if (i==3) {
+                [self closeBlackCircle];
+            }
+            
+        }];
+    }
+}
+
 #pragma mark - Delegate of animation
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
 
@@ -124,6 +165,11 @@
         [self initFunctionButtons];
     }
     
+    if ([[anim valueForKey:@"closeBlackCircle"] isEqual:@"Animation3"]) {
+        [_blackCircle removeFromSuperlayer];
+        self.enabled = YES;
+    }
+    
 }
 
 - (void)initFunctionButtons{
@@ -134,6 +180,7 @@
         functionBtn.center = _currentCtrl.view.center;
         [functionBtn addTarget:self action:@selector(functionButtonTap:) forControlEvents:UIControlEventTouchUpInside];
         [_currentCtrl.view addSubview:functionBtn];
+        [_buttonContainer addObject:functionBtn];
             switch (i) {
                 case 0:{
                     [UIView animateWithDuration:0.25 delay:0 options:0 animations:^{
@@ -170,7 +217,7 @@
                         functionBtn.frame = CGRectMake(self.frame.origin.x-(self.bounds.size.width+MARGIN-10), self.frame.origin.y+5, self.bounds.size.width-10, self.bounds.size.height-10);
                         functionBtn.layer.cornerRadius = functionBtn.frame.size.width/2;
                     } completion:^(BOOL finished) {
-                        
+                        self.enabled = YES;
                     }];
                 }
                     break;
@@ -185,40 +232,60 @@
 }
 
 - (void)functionButtonTap:(UIButton *)sender{
-    
-    switch (sender.tag) {
-        case DIRECTIONTOP:
-            return;
-            break;
-            
-        case DIRECTIONRIGHT:
-            return;
-            break;
-            
-        case DIRECTIONBOTTOM:
-            return;
-            break;
-            
-        case DIRECTIONLEFT:
-            return;
-            break;
-            
-        default:
-            break;
-    }
-    
+    [self itemTouched:sender];
     if (self.delegate) {
         [self.delegate functionButtonTapped:(sender.tag-10000)];
     }
 }
 
+/**圆环增大**/
 - (UIBezierPath *)pathWithDiameter:(CGFloat)diameter {
     return [UIBezierPath bezierPathWithOvalInRect:CGRectMake((CGRectGetWidth(self.bounds) - diameter) / 2, (CGRectGetHeight(self.bounds) - diameter) / 2, diameter, diameter)];
 }
 
 - (void)touchUpInsideHandler:(CircleMenu *)sender{
-    self.enabled = NO;
-    [self initGlowCircle];
+    if (!_isExpand) {
+        self.enabled = NO;
+        [self initGlowCircle];
+        _isExpand = YES;
+    } else {
+        self.enabled = NO;
+        [self closeGlowCircle];
+        _isExpand = NO;
+    }
+    
 }
 
+#pragma mark - 点击item按钮动画
+- (void)itemTouched:(UIButton*)sender{
+    [UIView animateWithDuration:0.25 animations:^{
+        sender.center = _currentCtrl.view.center;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            for (UIButton *button in _buttonContainer) {
+                if (button.tag == sender.tag) {
+                    continue;
+                }
+                button.alpha = 0;
+                self.alpha = 0;
+            }
+        } completion:^(BOOL finished) {
+            for (UIButton *button in _buttonContainer) {
+                if (button.tag == sender.tag) {
+                    continue;
+                }
+                [button removeFromSuperview];
+            }
+            [UIView animateWithDuration:0.25 animations:^{
+                sender.transform = CGAffineTransformMakeScale(SCALE,SCALE);
+            } completion:^(BOOL finished) {
+                _backView.frame = _currentCtrl.view.frame;
+                _backView.backgroundColor = sender.backgroundColor;
+                [_currentCtrl.view addSubview:_backView];
+                [sender removeFromSuperview];
+                [_buttonContainer removeAllObjects];
+            }];
+        }];
+    }];
+}
 @end
